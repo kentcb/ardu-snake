@@ -33,7 +33,12 @@ void setup() {
   arduboy.setFrameRate(60);
   arduboy.initRandomSeed();
 
-  startGame();
+  showTitle();
+}
+
+void showTitle() {
+  frame = 0;
+  gameState = TITLE;
 }
 
 void startGame() {
@@ -143,27 +148,34 @@ void drawWithSin(char ch, int angle, int amplitude, int x, int y) {
 
 void titleLoop() {
   const int speed = 10;
-  const int yWiggle = 14;
+  const int yWiggle = 12;
   const int halfYWiggle = yWiggle / 2;
 
   int startAngle = frame / speed;
-  const int angleAdjust = 15;
+  const int angleAdjust = 5;
   int angle = startAngle;
   int x = (screenWidth / 2) - (5 * 14 / 2);
 
-  drawWithSin('S', angle, 8, x, screenHeight / 2);
+  drawWithSin('S', angle, 8, x, 10);
   angle += angleAdjust;
   x += 14;
-  drawWithSin('N', angle, 8, x, screenHeight / 2);
+  drawWithSin('N', angle, 8, x, 10);
   angle += angleAdjust;
   x += 14;
-  drawWithSin('A', angle, 8, x, screenHeight / 2);
+  drawWithSin('A', angle, 8, x, 10);
   angle += angleAdjust;
   x += 14;
-  drawWithSin('K', angle, 8, x, screenHeight / 2);
+  drawWithSin('K', angle, 8, x, 10);
   angle += angleAdjust;
   x += 14;
-  drawWithSin('E', angle, 8, x, screenHeight / 2);
+  drawWithSin('E', angle, 8, x, 10);
+
+  char* credits = "Tempany and Kent";
+  drawString(credits, getHorizontalCenterFor(credits, 6), 50, 6);  
+
+  if (arduboy.pressed(A_BUTTON)) {
+    startGame();
+  }
   
   ++frame;
 }
